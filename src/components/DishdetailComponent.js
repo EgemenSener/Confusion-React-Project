@@ -1,73 +1,101 @@
-import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import React, {Component} from 'react';
+import { CardImg, CardText, CardTitle,Card, CardBody } from 'reactstrap';
 
-class DishDetail extends Component {
-    constructor(props) {
+
+class DishDetail extends Component{
+
+    constructor(props){
         super(props);
+
 
     }
 
-    renderDish(dish) {
-        if (dish != null)
+    renderDish(dish){
+
+        const imagePosition = {
+
+            borderWidth : '0px',
+
+        }
+
+        if(dish != null){
             return (
-                <Card className="col-12 col-md-5 m-1">
-                    <CardImg width="100%" src={dish.image} alt={dish.name} />
+
+                <Card className="col-12 col-md-5 m-1" style = {imagePosition}>
+                    <CardImg width = "%100" src = {dish.image} alt = {dish.name}></CardImg>
                     <CardBody>
                         <CardTitle>{dish.name}</CardTitle>
                         <CardText>{dish.description}</CardText>
                     </CardBody>
                 </Card>
-            );
-        else
+
+            )
+        }
+        else{
             return (
                 <div></div>
-            );
+            )
+        }
     }
-    renderComments(array) {
-        if (array.length != 0) {
-            return (
-                <div className="col-12 col-md-5 m-1">
+
+    selectedDishComments(dish){
+
+        if(dish.length != 0){
+
+            return(
+
+                <div className='col-12 col-md-5 m-1'>
                     <h4>Comments</h4>
-                    {array.map(comment => (
-                        <ul className="list-unstyled">
+                    {dish.map(cmnt =>(
+                        <ul className='list-unstyled'>
                             <li>
-                                <p>{comment.comment}</p>
-                                <p>-- {comment.author} , {comment.date}</p>
+                                <p>{cmnt.comment}</p>
+                                <p>--{cmnt.author},{cmnt.date}</p>
                             </li>
                         </ul>
-                    )
-                    )}
-                </div>
-            );
-        }
-        else {
-            return (
-                <div></div>
-            );
-
-        }
-    }
-    render() {
-        let dish;
-        if (this.props.selectedDish) {
-            dish = (
-                <div className="row">
-                    {this.renderDish(this.props.selectedDish)}
-                    {this.renderComments(this.props.selectedDish.comments)}
+                     ) )}
                 </div>
             )
-        } else {
+        }
+        else{
+            return(
+                <div></div>
+            )
+        }
+        
+
+
+    }
+
+
+
+    render(){
+
+        let dish;
+
+        if(this.props.selectedDish){
+
+            dish = (
+
+                <div className='row'>
+                    {this.renderDish(this.props.selectedDish)}
+                    {this.selectedDishComments(this.props.selectedDish.comments)}
+                </div>
+
+            )
+            
+        }
+        else{
             dish = <div></div>
         }
         return (
-            <div className="container">
+            <div className='container'>
                 {dish}
             </div>
         );
+
     }
 
 
-
 }
-
 export default DishDetail;
