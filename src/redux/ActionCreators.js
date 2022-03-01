@@ -12,7 +12,7 @@ export const postComment = (dishId, rating, author, comment) => (dispatch) => {
     const newComment = {
         dishId: dishId,
         rating: rating,
-        author: author,
+        author: author, 
         comment: comment
     };
     newComment.date = new Date().toISOString();
